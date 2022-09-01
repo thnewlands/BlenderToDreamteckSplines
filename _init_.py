@@ -22,7 +22,7 @@ from bpy.props import StringProperty, BoolProperty
 from bpy.types import Operator
 
 class DreamteckSplineExporter(Operator, ExportHelper):
-    """This appears in the tooltip of the operator and in the generated docs"""
+    """Export bezier curves as csv files for import in the DreamTeck Splines plugin for Unity."""
     bl_idname = "spline_exporter.bezier_curve"  # important since its how bpy.ops.import_test.some_data is constructed
     bl_label = "Export bezier curve to Dreamteck Splines"
 
