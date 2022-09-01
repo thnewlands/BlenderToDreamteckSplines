@@ -1,6 +1,17 @@
 import csv
 import bpy
 
+bl_info = {
+    "name" : "DreamteckSplineExporter",
+    "author" : "Holly Newlands",
+    "description" : "",
+    "blender" : (2, 80, 0),
+    "version" : (0, 0, 1),
+    "location" : "",
+    "warning" : "",
+    "category" : "Generic"
+}
+
 def write_some_data(context, filepath, use_some_setting):
     print("running write_some_data...")
     f = open(filepath, 'w', encoding='utf-8')
