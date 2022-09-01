@@ -1,5 +1,5 @@
 # BlenderToDreamteckSplines
-An unofficial exporter converting Blender's bezier curves to splines in [Dreamteck Splines](https://assetstore.unity.com/packages/tools/utilities/dreamteck-splines-61926).
+An unofficial exporter converting Blender's bezier curves to splines in [Dreamteck Splines](https://assetstore.unity.com/packages/tools/utilities/dreamteck-splines-61926) for Unity.
 
 ## How to:
 1. Download the addon as a zip.
