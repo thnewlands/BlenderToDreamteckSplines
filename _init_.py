@@ -1,4 +1,7 @@
 import csv
+from queue import Empty
+from select import select
+from traceback import print_exception
 import bpy
 
 bl_info = {
@@ -12,14 +15,38 @@ bl_info = {
     "category" : "Generic"
 }
 
-def write_some_data(context, filepath, use_some_setting):
+def write_csv(context, filepath, header, data):
     print("running write_some_data...")
-    f = open(filepath, 'w', encoding='utf-8')
-    f.write("Hello World %s" % use_some_setting)
-    f.close()
-
+    with open(filepath, 'w', encoding='UTF8', newline='') as f:
+        writer = csv.writer(f)
+        # write the header
+        writer.writerow(header)
+        # write multiple rows
+        writer.writerows(data)
     return {'FINISHED'}
 
+def valid_selection():
+    if len(bpy.context.selected_objects) < 1:
+        return False
+    if len(bpy.context.selected_objects[0].data.splines) < 1:
+        return False
+    return True
+
+def get_bezier_from_selection():
+    return bpy.context.selected_objects[0].data.splines[0]
+
+def convert_bezier_to_csv(spline):
+    data = []
+    for point in spline.bezier_points:
+        data.append([
+            point.co.x, point.co.z, point.co.y, #swizzle
+            point.handle_right.x, point.handle_right.z, point.handle_right.y,  #swizzle
+            point.handle_left.x, point.handle_left.z, point.handle_left.y, #swizzle
+            #0.0, 1.0, 0.0, #TODO: Blender splines don't have a normal property, only a twist value
+            point.radius,
+            1.0, 1.0, 1.0, 1.0
+            ])
+    return data
 
 # ExportHelper is a helper class, defines filename and
 # invoke() function which calls the file selector.
@@ -35,38 +62,27 @@ class DreamteckSplineExporter(Operator, ExportHelper):
 
     # ExportHelper mixin class uses this
     filename_ext = ".csv"
-
+    #full_header = ['PositionX','PositionY','PositionZ','TangentX','TangentY','TangentZ','Tangent2X','Tangent2Y','Tangent2Z','NormalX','NormalY','NormalZ','Size','ColorR','ColorG','ColorB','ColorA']
+    csv_header = ['PositionX','PositionY','PositionZ','TangentX','TangentY','TangentZ','Tangent2X','Tangent2Y','Tangent2Z','Size','ColorR','ColorG','ColorB','ColorA']
     filter_glob: StringProperty(
         default="*.csv",
         options={'HIDDEN'},
         maxlen=255,  # Max internal buffer length, longer would be clamped.
     )
 
-    # List of operator properties, the attributes will be assigned
-    # to the class instance from the operator settings before calling.
-    use_setting: BoolProperty(
-        name="Example Boolean",
-        description="Example Tooltip",
-        default=True,
-    )
-
-    type: EnumProperty(
-        name="Example Enum",
-        description="Choose between two items",
-        items=(
-            ('OPT_A', "First Option", "Description one"),
-            ('OPT_B', "Second Option", "Description two"),
-        ),
-        default='OPT_A',
-    )
-
     def execute(self, context):
-        return write_some_data(context, self.filepath, self.use_setting)
+        if valid_selection():
+            selection = get_bezier_from_selection()
+            csv_data = convert_bezier_to_csv(selection)
+            return write_csv(context, self.filepath, self.csv_header, csv_data)
+        else:
+            self.report({'WARNING'}, "There was no bezier curve in selection to export.")
+            return {'FINISHED'}
 
 
 # Only needed if you want to add into a dynamic menu
 def menu_func_export(self, context):
-    self.layout.operator(DreamteckSplineExporter.bl_idname, text="Text Export Operator")
+    self.layout.operator(DreamteckSplineExporter.bl_idname, text="Export Dreamteck Spline (.csv)")
 
 
 # Register and add to the "file selector" menu (required to use F3 search "Text Export Operator" for quick access).
@@ -87,10 +103,8 @@ if __name__ == "__main__":
     bpy.ops.export_test.some_data('INVOKE_DEFAULT')
 
 filepath = r"spline_export.csv"
-#header = ['PositionX','PositionY','PositionZ','TangentX','TangentY','TangentZ','Tangent2X','Tangent2Y','Tangent2Z','NormalX','NormalY','NormalZ','Size','ColorR','ColorG','ColorB','ColorA']
 #rotate 90 degrees on X axis 
 #can get rid of normals property
-header = ['PositionX','PositionY','PositionZ','TangentX','TangentY','TangentZ','Tangent2X','Tangent2Y','Tangent2Z','Size','ColorR','ColorG','ColorB','ColorA']
 
 #https://behreajj.medium.com/scripting-curves-in-blender-with-python-c487097efd13
 #bpy.context.selected_objects[0].data.splines[0].bezier_points
@@ -102,24 +116,8 @@ header = ['PositionX','PositionY','PositionZ','TangentX','TangentY','TangentZ','
 #radius --> size
 #no color
 #no normal (maybe cross tangent w/ forward? or just dont export
-data = []
-for point in bpy.context.selected_objects[0].data.splines[0].bezier_points:
-    data.append([
-        point.co.x, point.co.z, point.co.y, #swizzle
-        point.handle_right.x, point.handle_right.z, point.handle_right.y,  #swizzle
-        point.handle_left.x, point.handle_left.z, point.handle_left.y, #swizzle
-        #0.0, 1.0, 0.0,
-        point.radius,
-        1.0, 1.0, 1.0, 1.0
-        ])
 
-with open(filepath, 'w', encoding='UTF8', newline='') as f:
-    writer = csv.writer(f)
 
-    # write the header
-    writer.writerow(header)
 
-    # write multiple rows
-    writer.writerows(data)
 
 
