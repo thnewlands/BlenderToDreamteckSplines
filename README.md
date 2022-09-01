@@ -23,5 +23,7 @@ An unofficial exporter for blender beziercurves to dreamteck splines
 5. Done! You should see your spline in Unity.
 
 ## Notes
+
 Currently does not support normals or colors. 
+
 I am not in any way affiliated with Dreamteck.
