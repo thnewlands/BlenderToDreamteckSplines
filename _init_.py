@@ -5,14 +5,14 @@ from traceback import print_exception
 import bpy
 
 bl_info = {
-    "name" : "DreamteckSplineExporter",
+    "name" : "Dreamteck Spline Exporter",
     "author" : "Holly Newlands",
-    "description" : "",
+    "description" : "Export bezier curves as csv files for import in the DreamTeck Splines plugin for Unity.",
     "blender" : (2, 80, 0),
     "version" : (0, 0, 1),
     "location" : "",
     "warning" : "",
-    "category" : "Generic"
+    "category" : "Import-Export"
 }
 
 def write_csv(context, filepath, header, data):
@@ -38,6 +38,13 @@ def get_bezier_from_selection():
 def convert_bezier_to_csv(spline):
     data = []
     for point in spline.bezier_points:
+        #~~ conversion notes ~~
+        #Position -- co (local coordinate?)
+        #TangentXYZ --> handle_left
+        #Tangent2XYZ --> handle_right
+        #NormalXYZ --> !! not defined in blender !! 
+        #Size --> radius
+        #ColorRGB --> !! not defined in blender !!
         data.append([
             point.co.x, point.co.z, point.co.y, #swizzle
             point.handle_right.x, point.handle_right.z, point.handle_right.y,  #swizzle
@@ -101,23 +108,3 @@ if __name__ == "__main__":
 
     # test call
     bpy.ops.export_test.some_data('INVOKE_DEFAULT')
-
-filepath = r"spline_export.csv"
-#rotate 90 degrees on X axis 
-#can get rid of normals property
-
-#https://behreajj.medium.com/scripting-curves-in-blender-with-python-c487097efd13
-#bpy.context.selected_objects[0].data.splines[0].bezier_points
-#bpy.context.selected_objects[0].data.splines[0].bezier_points[0].radius
-#https://blender.stackexchange.com/questions/258052/select-end-points-of-a-curve-using-blender-scripting
-#co -- coordinate
-#tangentxyz --> handle left
-#tangent2xyz --> handle right
-#radius --> size
-#no color
-#no normal (maybe cross tangent w/ forward? or just dont export
-
-
-
-
-
