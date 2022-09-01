@@ -1,5 +1,5 @@
 # BlenderToDreamteckSplines
-An unofficial exporter converting Blender's bezier curves to splines in Dreamteck Splines.
+An unofficial exporter converting Blender's bezier curves to splines in [Dreamteck Splines](https://assetstore.unity.com/packages/tools/utilities/dreamteck-splines-61926).
 
 ## How to:
 1. Download the addon as a zip.
@@ -16,7 +16,7 @@ An unofficial exporter converting Blender's bezier curves to splines in Dreamtec
 
 ![image](https://user-images.githubusercontent.com/4378629/188004531-dfe5625d-e9a4-4e23-8afa-73b23f0a14f0.png)
 
-4. You will be able to import your new bezier curves as csv through Dreamteck's tool panel. 
+4. You will be able to import your new bezier curves as csv through Dreamteck's tool panel. [See more in their manual](https://dreamteck.io/page/dreamteck_splines/user_manual.pdf).
 
 ![image](https://user-images.githubusercontent.com/4378629/188005424-916da6fa-4922-46e3-9e97-31727736c01f.png)
 
@@ -27,6 +27,8 @@ An unofficial exporter converting Blender's bezier curves to splines in Dreamtec
 ![Unity_e0gwfO2rXy](https://user-images.githubusercontent.com/4378629/188006592-0eece84d-f1ef-4b35-a490-ee4f7e71e738.png)
 
 ## Notes
+
+This was developed on Blender 3.2.2. I can't promise it will work on versions before it.
 
 Currently does not support normals or colors. I'm very open to pull requests so if you have a good idea for implementing either please don't be a stranger! Both are disabled by default.
 
