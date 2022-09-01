@@ -5,7 +5,7 @@ from traceback import print_exception
 import bpy
 
 bl_info = {
-    "name" : "Dreamteck Spline Exporter",
+    "name" : "Spline Exporter for Dreamteck Splines",
     "author" : "Holly Newlands",
     "description" : "Export bezier curves as csv files for import in the DreamTeck Splines plugin for Unity.",
     "blender" : (2, 80, 0),
@@ -18,9 +18,8 @@ bl_info = {
 # ExportHelper is a helper class, defines filename and
 # invoke() function which calls the file selector.
 from bpy_extras.io_utils import ExportHelper
-from bpy.props import StringProperty, BoolProperty, EnumProperty
+from bpy.props import StringProperty, BoolProperty
 from bpy.types import Operator
-
 
 class DreamteckSplineExporter(Operator, ExportHelper):
     """This appears in the tooltip of the operator and in the generated docs"""
