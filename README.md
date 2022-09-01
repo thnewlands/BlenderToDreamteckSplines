@@ -24,6 +24,6 @@ An unofficial exporter for blender beziercurves to dreamteck splines
 
 ## Notes
 
-Currently does not support normals or colors. 
+Currently does not support normals or colors. I'm very open to pull requests so if you have a good idea for implementing either please don't be a stranger! Both are disabled by default.
 
 I am not in any way affiliated with Dreamteck.
