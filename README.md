@@ -12,6 +12,8 @@ An unofficial exporter for blender beziercurves to dreamteck splines
 
 3. A new option will appear in the export menu. Select your BezierCurve object and click "Export Dreamteck Spline (.csv)". 
 
+![blender_EOXHheBkAo](https://user-images.githubusercontent.com/4378629/188006546-82d55161-32be-47cd-a697-6d1fef13e9cd.png)
+
 ![image](https://user-images.githubusercontent.com/4378629/188004531-dfe5625d-e9a4-4e23-8afa-73b23f0a14f0.png)
 
 4. You will be able to import your new bezier curves as csv through Dreamteck's tool panel. 
@@ -21,6 +23,8 @@ An unofficial exporter for blender beziercurves to dreamteck splines
 ![image](https://user-images.githubusercontent.com/4378629/188005484-a4f76faa-94ce-483d-9cf0-75e64e180e1c.png)
 
 5. Done! You should see your spline in Unity.
+
+![Unity_e0gwfO2rXy](https://user-images.githubusercontent.com/4378629/188006592-0eece84d-f1ef-4b35-a490-ee4f7e71e738.png)
 
 ## Notes
 
