@@ -89,7 +89,7 @@ class DreamteckSplineExporter(Operator, ExportHelper):
             values = []
             if self.use_position:
                 #Position -- co (local coordinate?)
-                values += [point.co.x, point.co.z, point.co.y]
+                values += [-point.co.x, point.co.z, -point.co.y]
             if self.use_tangent:
                 #TangentXYZ --> handle_left
                 values += [point.handle_right.x, point.handle_right.z, point.handle_right.y]
@@ -132,6 +132,7 @@ class DreamteckSplineExporter(Operator, ExportHelper):
     def execute(self, context):
         if self.validate_selection():
             selection = self.get_bezier_from_selection()
+            #TODO: Subdivide to get better precision when Dreamteck doesn't import handles
             csv_data = self.convert_bezier_to_csv(selection)
             return self.write_csv(context, self.filepath, self.get_header(), csv_data)
         else:
