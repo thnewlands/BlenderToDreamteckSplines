@@ -54,7 +54,7 @@ class DreamteckSplineExporter(Operator, ExportHelper):
     use_normal: BoolProperty(
         name="Use Normal",
         description="NOTE: Sets all normals to (0,1,0) until I find a better process. Currently here as placeholder.",
-        default=False,
+        default=True,
     )
     use_size: BoolProperty(
         name="Use Size",
@@ -64,7 +64,7 @@ class DreamteckSplineExporter(Operator, ExportHelper):
     use_color: BoolProperty(
         name="Use Color",
         description="NOTE: Sets all colors to (1,1,1,1) until I find a better process. Currently here as placeholder.",
-        default=False,
+        default=True,
     )
 
     def get_header(self):
