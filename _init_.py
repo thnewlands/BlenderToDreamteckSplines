@@ -92,10 +92,10 @@ class DreamteckSplineExporter(Operator, ExportHelper):
                 values += [-point.co.x, point.co.z, -point.co.y]
             if self.use_tangent:
                 #TangentXYZ --> handle_left
-                values += [point.handle_right.x, point.handle_right.z, point.handle_right.y]
+                values += [-point.handle_left.x, point.handle_left.z, -point.handle_left.y]
             if self.use_tangent2:
                 #Tangent2XYZ --> handle_right
-                values += [point.handle_left.x, point.handle_left.z, point.handle_left.y]
+                values += [-point.handle_right.x, point.handle_right.z, -point.handle_right.y]
             if self.use_normal:
                 #NormalXYZ --> !! not defined in blender !! 
                 values += [0.0, 1.0, 0.0] #TODO: Blender splines don't have a normal property, only a twist value
